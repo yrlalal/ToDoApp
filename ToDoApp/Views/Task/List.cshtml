@@ -1,0 +1,63 @@
+﻿@model ToDoApp.ViewModel.TaskListViewModel
+@{
+	ViewBag.Title = "Task List";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>
+	Task List</h2>
+<div class="table">
+	<table>
+		<tr>
+			<td class="col-description">
+				@Html.DisplayNameFor(model => model.ToDoItems.FirstOrDefault().Description)
+			</td>
+			<td class="col-category">
+				@Html.DisplayNameFor(model => model.ToDoItems.FirstOrDefault().Category)
+			</td>
+			<td class="col-duedate">
+				@Html.DisplayNameFor(model => model.ToDoItems.FirstOrDefault().DueDateMonth)
+			</td>
+			<td class="col-status">
+				@Html.DisplayNameFor(model => model.ToDoItems.FirstOrDefault().Status)
+			</td>
+			<td class="col-priority">
+				@Html.DisplayNameFor(model => model.ToDoItems.FirstOrDefault().Priority)
+			</td>
+			<td class="col-actions">
+				Actions
+			</td>
+		</tr>
+		@foreach (var item in Model.ToDoItems)
+  {
+			<tr>
+				<td class="col-description">
+					<span>@Html.DisplayFor(modelItem => item.Description)</span>
+				</td>
+				<td class="col-category">
+					<span>@Html.DisplayFor(modelItem => item.Category)</span>
+				</td>
+				<td class="col-duedate">
+					@if (!string.IsNullOrEmpty(item.DueDateMonth))
+	 {
+						<span>@Html.DisplayFor(modelItem => item.DueDateMonth) /</span>
+						<span>@Html.DisplayFor(modelItem => item.DueDateDay) /</span>
+						<span>@Html.DisplayFor(modelItem => item.DueDateYear)</span>
+	 }
+				</td>
+				<td class="col-status">
+					<span>@Html.DisplayFor(modelItem => item.Status)</span>
+				</td>
+				<td class="col-priority">
+					<span>@Html.DisplayFor(modelItem => item.Priority)</span>
+				</td>
+				<td class="col-actions">
+					@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+					@Html.ActionLink("Delete", "Delete", new { id = item.Id })
+				</td>
+			</tr>
+  }
+	</table>
+</div>
+<div class="add-task">
+	@Html.ActionLink("Add Task", "Add")
+</div>

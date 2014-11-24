@@ -1,0 +1,57 @@
+﻿@using ToDoApp
+@model ToDoApp.Model.ToDoItem
+@{
+	ViewBag.Title = "Edit";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>
+	Edit Task</h2>
+@using (Html.BeginHorizontalForm())
+{
+	@Html.ValidationSummary(true)
+	@Html.HiddenFor(model => model.Id)
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.Description, new { @class = "col-sm-2 control-label" })
+		<div class="col-sm-10">
+			@Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+			@Html.ValidationMessageFor(model => model.Description)
+		</div>
+	</div>
+	
+	@Html.Partial("_DateControl")
+
+	<div class="form-group">
+		@Html.LabelFor(model => model.Category, new { @class = "col-sm-2 control-label" })
+		<div class="col-sm-10">
+			@Html.DropDownListFor(model => model.Category, Model.CategoryList, new { @class = "form-control" })
+			@Html.ValidationMessageFor(model => model.Category)
+		</div>
+	</div>
+	
+	<div class="form-group">
+		@Html.LabelFor(model => model.Priority, new { @class = "col-sm-2 control-label" })
+		<div class="col-sm-10">
+			@Html.DropDownListFor(model => model.Priority, Model.PriorityList, new { @class = "form-control" })
+			@Html.ValidationMessageFor(model => model.Priority)
+		</div>
+	</div>
+	
+	<div class="form-group">
+		@Html.LabelFor(model => model.Status, new { @class = "col-sm-2 control-label" })
+		<div class="col-sm-10">
+			@Html.DropDownListFor(model => model.Status, Model.StatusList, new { @class = "form-control" })
+			@Html.ValidationMessageFor(model => model.Status)
+		</div>
+	</div>
+	
+	<p>
+		<input type="submit" value="Save" />
+	</p>
+}
+<div>
+	@Html.ActionLink("Back to List", "List")
+</div>
+@section scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}
