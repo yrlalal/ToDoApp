@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4DF6F684-032F-456E-B80D-41FC09D09C65}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ToDoApp.Data.Services</RootNamespace>
+    <AssemblyName>ToDoApp.Data.Services</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Account\AccountDataServiceBase.cs" />
+    <Compile Include="Account\AddAccountDataService.cs" />
+    <Compile Include="Account\VerifyAccountDataService.cs" />
+    <Compile Include="Account\Interfaces\IVerifyAccountDataService.cs" />
+    <Compile Include="Account\Interfaces\IAddAccountDataService.cs" />
+    <Compile Include="Category\Interface\IRetrieveCategoryListDataService.cs" />
+    <Compile Include="Category\RetrieveCategoryListDataService.cs" />
+    <Compile Include="Priority\Interface\IRetrievePriorityListDataService.cs" />
+    <Compile Include="Priority\RetrievePriorityListDataService.cs" />
+    <Compile Include="Status\Interface\IRetrieveStatusListDataService.cs" />
+    <Compile Include="Status\RetrieveStatusListDataService.cs" />
+    <Compile Include="Task\Interfaces\IRetrieveTaskDataService.cs" />
+    <Compile Include="Task\RetrieveTaskDataService.cs" />
+    <Compile Include="Task\DeleteTaskDataService.cs" />
+    <Compile Include="Task\UpdateTaskDataService.cs" />
+    <Compile Include="Task\CreateTaskDataService.cs" />
+    <Compile Include="Task\TaskDataServiceBase.cs" />
+    <Compile Include="Task\Interfaces\ICreateTaskDataService.cs" />
+    <Compile Include="Task\Interfaces\IDeleteTaskDataService.cs" />
+    <Compile Include="Task\Interfaces\IUpdateTaskDataService.cs" />
+    <Compile Include="Task\Interfaces\IRetrieveTaskListDataService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Task\TaskDetails.cs" />
+    <Compile Include="Task\RetrieveTaskListDataService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ToDoApp.Data.Model\ToDoApp.Data.Model.csproj">
+      <Project>{F063FDBA-578D-4B8E-841E-3F3DA0C5AEB6}</Project>
+      <Name>ToDoApp.Data.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

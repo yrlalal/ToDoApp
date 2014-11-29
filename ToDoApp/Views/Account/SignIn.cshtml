@@ -1,0 +1,22 @@
+﻿@using ToDoApp.Core.Helpers
+@model ToDoApp.UI.ViewModel.Account.SignInViewModel
+@{
+	ViewBag.Title = "Sign In";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginSignInForm())
+{
+	<h2 class="form-signin-heading">Please sign in</h2>
+    @Html.AntiForgeryToken()
+	@Html.ValidationMessage("AccountNotFound")
+	@Html.LabelFor(model => model.Email, new { @class = "sr-only" })
+	@Html.TextBoxFor(model => model.Email, new { @class = "form-control", @placeholder = "Email Address" })
+	@Html.ValidationMessageFor(model => model.Email)
+	@Html.LabelFor(model => model.Password, new { @class = "sr-only" })
+	@Html.PasswordFor(model => model.Password, new { @class = "form-control", @placeholder = "Password" })
+	@Html.ValidationMessageFor(model => model.Password)
+	<button type="submit" class="btn btn-lg btn-success btn-block">Sign In</button>
+}
+@section scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}

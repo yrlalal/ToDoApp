@@ -1,0 +1,586 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TaskDbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="TaskDbModelStoreContainer">
+          <EntitySet Name="Account" EntityType="TaskDbModel.Store.Account" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Category" EntityType="TaskDbModel.Store.Category" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Priority" EntityType="TaskDbModel.Store.Priority" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Status" EntityType="TaskDbModel.Store.Status" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Task" EntityType="TaskDbModel.Store.Task" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="HistoryTask" EntityType="TaskDbModel.Store.HistoryTask" store:Type="Tables" Schema="history" Table="Task" />
+          <AssociationSet Name="FK_HistoryTask_Account" Association="TaskDbModel.Store.FK_HistoryTask_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="HistoryTask" EntitySet="HistoryTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HistoryTask_Category" Association="TaskDbModel.Store.FK_HistoryTask_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="HistoryTask" EntitySet="HistoryTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HistoryTask_Priority" Association="TaskDbModel.Store.FK_HistoryTask_Priority">
+            <End Role="Priority" EntitySet="Priority" />
+            <End Role="HistoryTask" EntitySet="HistoryTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HistoryTask_Status" Association="TaskDbModel.Store.FK_HistoryTask_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="HistoryTask" EntitySet="HistoryTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Account" Association="TaskDbModel.Store.FK_Task_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Category" Association="TaskDbModel.Store.FK_Task_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Priority" Association="TaskDbModel.Store.FK_Task_Priority">
+            <End Role="Priority" EntitySet="Priority" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Status" Association="TaskDbModel.Store.FK_Task_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Task" EntitySet="Task" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="AccountId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Password" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="LastName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="LastUpdateDateTime" Type="smalldatetime" Nullable="false" />
+          <Property Name="AddDateTime" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryText" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="LastUpdateDateTime" Type="smalldatetime" Nullable="false" />
+          <Property Name="AddDateTime" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Priority">
+          <Key>
+            <PropertyRef Name="PriorityId" />
+          </Key>
+          <Property Name="PriorityId" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PriorityText" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="LastUpdateDateTime" Type="smalldatetime" Nullable="false" />
+          <Property Name="AddDateTime" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StatusText" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="LastUpdateDateTime" Type="smalldatetime" Nullable="false" />
+          <Property Name="AddDateTime" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="TaskId" />
+          </Key>
+          <Property Name="TaskId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AccountId" Type="bigint" Nullable="false" />
+          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="CategoryId" Type="smallint" />
+          <Property Name="StatusId" Type="smallint" />
+          <Property Name="PriorityId" Type="smallint" />
+          <Property Name="DueDate" Type="smalldatetime" />
+          <Property Name="LastUpdateDateTime" Type="smalldatetime" Nullable="false" />
+          <Property Name="AddDateTime" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HistoryTask">
+          <Key>
+            <PropertyRef Name="TaskId" />
+          </Key>
+          <Property Name="TaskId" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="AccountId" Type="bigint" Nullable="false" />
+          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="CategoryId" Type="smallint" />
+          <Property Name="StatusId" Type="smallint" />
+          <Property Name="PriorityId" Type="smallint" />
+          <Property Name="DueDate" Type="smalldatetime" />
+          <Property Name="LastUpdateDateTime" Type="smalldatetime" Nullable="false" />
+          <Property Name="AddDateTime" Type="smalldatetime" Nullable="false" />
+          <Property Name="TransactionDateTime" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_HistoryTask_Account">
+          <End Role="Account" Type="TaskDbModel.Store.Account" Multiplicity="1" />
+          <End Role="HistoryTask" Type="TaskDbModel.Store.HistoryTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountId" />
+            </Principal>
+            <Dependent Role="HistoryTask">
+              <PropertyRef Name="AccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HistoryTask_Category">
+          <End Role="Category" Type="TaskDbModel.Store.Category" Multiplicity="0..1" />
+          <End Role="HistoryTask" Type="TaskDbModel.Store.HistoryTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="HistoryTask">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HistoryTask_Priority">
+          <End Role="Priority" Type="TaskDbModel.Store.Priority" Multiplicity="0..1" />
+          <End Role="HistoryTask" Type="TaskDbModel.Store.HistoryTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Priority">
+              <PropertyRef Name="PriorityId" />
+            </Principal>
+            <Dependent Role="HistoryTask">
+              <PropertyRef Name="PriorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HistoryTask_Status">
+          <End Role="Status" Type="TaskDbModel.Store.Status" Multiplicity="0..1" />
+          <End Role="HistoryTask" Type="TaskDbModel.Store.HistoryTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="HistoryTask">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Account">
+          <End Role="Account" Type="TaskDbModel.Store.Account" Multiplicity="1" />
+          <End Role="Task" Type="TaskDbModel.Store.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountId" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="AccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Category">
+          <End Role="Category" Type="TaskDbModel.Store.Category" Multiplicity="0..1" />
+          <End Role="Task" Type="TaskDbModel.Store.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Priority">
+          <End Role="Priority" Type="TaskDbModel.Store.Priority" Multiplicity="0..1" />
+          <End Role="Task" Type="TaskDbModel.Store.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Priority">
+              <PropertyRef Name="PriorityId" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="PriorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Status">
+          <End Role="Status" Type="TaskDbModel.Store.Status" Multiplicity="0..1" />
+          <End Role="Task" Type="TaskDbModel.Store.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TaskDbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="TaskDb" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="TaskDbModel.Account" />
+          <EntitySet Name="Categories" EntityType="TaskDbModel.Category" />
+          <EntitySet Name="Priorities" EntityType="TaskDbModel.Priority" />
+          <EntitySet Name="Status" EntityType="TaskDbModel.Status" />
+          <EntitySet Name="Tasks" EntityType="TaskDbModel.Task" />
+          <EntitySet Name="HistoryTasks" EntityType="TaskDbModel.HistoryTask" />
+          <AssociationSet Name="FK_HistoryTask_Account" Association="TaskDbModel.FK_HistoryTask_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="HistoryTask" EntitySet="HistoryTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Account" Association="TaskDbModel.FK_Task_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HistoryTask_Category" Association="TaskDbModel.FK_HistoryTask_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="HistoryTask" EntitySet="HistoryTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Category" Association="TaskDbModel.FK_Task_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HistoryTask_Priority" Association="TaskDbModel.FK_HistoryTask_Priority">
+            <End Role="Priority" EntitySet="Priorities" />
+            <End Role="HistoryTask" EntitySet="HistoryTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Priority" Association="TaskDbModel.FK_Task_Priority">
+            <End Role="Priority" EntitySet="Priorities" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HistoryTask_Status" Association="TaskDbModel.FK_HistoryTask_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="HistoryTask" EntitySet="HistoryTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Task_Status" Association="TaskDbModel.FK_Task_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Task" EntitySet="Tasks" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountId" />
+          </Key>
+          <Property Name="AccountId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="LastUpdateDateTime" Type="DateTime" Nullable="false" />
+          <Property Name="AddDateTime" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="HistoryTasks" Relationship="TaskDbModel.FK_HistoryTask_Account" FromRole="Account" ToRole="HistoryTask" />
+          <NavigationProperty Name="Tasks" Relationship="TaskDbModel.FK_Task_Account" FromRole="Account" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryId" />
+          </Key>
+          <Property Name="CategoryId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryText" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="LastUpdateDateTime" Type="DateTime" Nullable="false" />
+          <Property Name="AddDateTime" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="HistoryTasks" Relationship="TaskDbModel.FK_HistoryTask_Category" FromRole="Category" ToRole="HistoryTask" />
+          <NavigationProperty Name="Tasks" Relationship="TaskDbModel.FK_Task_Category" FromRole="Category" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="Priority">
+          <Key>
+            <PropertyRef Name="PriorityId" />
+          </Key>
+          <Property Name="PriorityId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PriorityText" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="LastUpdateDateTime" Type="DateTime" Nullable="false" />
+          <Property Name="AddDateTime" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="HistoryTasks" Relationship="TaskDbModel.FK_HistoryTask_Priority" FromRole="Priority" ToRole="HistoryTask" />
+          <NavigationProperty Name="Tasks" Relationship="TaskDbModel.FK_Task_Priority" FromRole="Priority" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusText" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="LastUpdateDateTime" Type="DateTime" Nullable="false" />
+          <Property Name="AddDateTime" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="HistoryTasks" Relationship="TaskDbModel.FK_HistoryTask_Status" FromRole="Status" ToRole="HistoryTask" />
+          <NavigationProperty Name="Tasks" Relationship="TaskDbModel.FK_Task_Status" FromRole="Status" ToRole="Task" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="TaskId" />
+          </Key>
+          <Property Name="TaskId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountId" Type="Int64" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="CategoryId" Type="Int16" />
+          <Property Name="StatusId" Type="Int16" />
+          <Property Name="PriorityId" Type="Int16" />
+          <Property Name="DueDate" Type="DateTime" />
+          <Property Name="LastUpdateDateTime" Type="DateTime" Nullable="false" />
+          <Property Name="AddDateTime" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="TaskDbModel.FK_Task_Account" FromRole="Task" ToRole="Account" />
+          <NavigationProperty Name="Category" Relationship="TaskDbModel.FK_Task_Category" FromRole="Task" ToRole="Category" />
+          <NavigationProperty Name="Priority" Relationship="TaskDbModel.FK_Task_Priority" FromRole="Task" ToRole="Priority" />
+          <NavigationProperty Name="Status" Relationship="TaskDbModel.FK_Task_Status" FromRole="Task" ToRole="Status" />
+        </EntityType>
+        <EntityType Name="HistoryTask">
+          <Key>
+            <PropertyRef Name="TaskId" />
+          </Key>
+          <Property Name="TaskId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AccountId" Type="Int64" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="CategoryId" Type="Int16" />
+          <Property Name="StatusId" Type="Int16" />
+          <Property Name="PriorityId" Type="Int16" />
+          <Property Name="DueDate" Type="DateTime" />
+          <Property Name="LastUpdateDateTime" Type="DateTime" Nullable="false" />
+          <Property Name="AddDateTime" Type="DateTime" Nullable="false" />
+          <Property Name="TransactionDateTime" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="TaskDbModel.FK_HistoryTask_Account" FromRole="HistoryTask" ToRole="Account" />
+          <NavigationProperty Name="Category" Relationship="TaskDbModel.FK_HistoryTask_Category" FromRole="HistoryTask" ToRole="Category" />
+          <NavigationProperty Name="Priority" Relationship="TaskDbModel.FK_HistoryTask_Priority" FromRole="HistoryTask" ToRole="Priority" />
+          <NavigationProperty Name="Status" Relationship="TaskDbModel.FK_HistoryTask_Status" FromRole="HistoryTask" ToRole="Status" />
+        </EntityType>
+        <Association Name="FK_HistoryTask_Account">
+          <End Role="Account" Type="TaskDbModel.Account" Multiplicity="1" />
+          <End Role="HistoryTask" Type="TaskDbModel.HistoryTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountId" />
+            </Principal>
+            <Dependent Role="HistoryTask">
+              <PropertyRef Name="AccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Account">
+          <End Role="Account" Type="TaskDbModel.Account" Multiplicity="1" />
+          <End Role="Task" Type="TaskDbModel.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountId" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="AccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HistoryTask_Category">
+          <End Role="Category" Type="TaskDbModel.Category" Multiplicity="0..1" />
+          <End Role="HistoryTask" Type="TaskDbModel.HistoryTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="HistoryTask">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Category">
+          <End Role="Category" Type="TaskDbModel.Category" Multiplicity="0..1" />
+          <End Role="Task" Type="TaskDbModel.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HistoryTask_Priority">
+          <End Role="Priority" Type="TaskDbModel.Priority" Multiplicity="0..1" />
+          <End Role="HistoryTask" Type="TaskDbModel.HistoryTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Priority">
+              <PropertyRef Name="PriorityId" />
+            </Principal>
+            <Dependent Role="HistoryTask">
+              <PropertyRef Name="PriorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Priority">
+          <End Role="Priority" Type="TaskDbModel.Priority" Multiplicity="0..1" />
+          <End Role="Task" Type="TaskDbModel.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Priority">
+              <PropertyRef Name="PriorityId" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="PriorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HistoryTask_Status">
+          <End Role="Status" Type="TaskDbModel.Status" Multiplicity="0..1" />
+          <End Role="HistoryTask" Type="TaskDbModel.HistoryTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="HistoryTask">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Task_Status">
+          <End Role="Status" Type="TaskDbModel.Status" Multiplicity="0..1" />
+          <End Role="Task" Type="TaskDbModel.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Task">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TaskDbModelStoreContainer" CdmEntityContainer="TaskDb">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="TaskDbModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastUpdateDateTime" ColumnName="LastUpdateDateTime" />
+                <ScalarProperty Name="AddDateTime" ColumnName="AddDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="TaskDbModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="CategoryText" ColumnName="CategoryText" />
+                <ScalarProperty Name="LastUpdateDateTime" ColumnName="LastUpdateDateTime" />
+                <ScalarProperty Name="AddDateTime" ColumnName="AddDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Priorities">
+            <EntityTypeMapping TypeName="TaskDbModel.Priority">
+              <MappingFragment StoreEntitySet="Priority">
+                <ScalarProperty Name="PriorityId" ColumnName="PriorityId" />
+                <ScalarProperty Name="PriorityText" ColumnName="PriorityText" />
+                <ScalarProperty Name="LastUpdateDateTime" ColumnName="LastUpdateDateTime" />
+                <ScalarProperty Name="AddDateTime" ColumnName="AddDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="TaskDbModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="StatusText" ColumnName="StatusText" />
+                <ScalarProperty Name="LastUpdateDateTime" ColumnName="LastUpdateDateTime" />
+                <ScalarProperty Name="AddDateTime" ColumnName="AddDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tasks">
+            <EntityTypeMapping TypeName="TaskDbModel.Task">
+              <MappingFragment StoreEntitySet="Task">
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="PriorityId" ColumnName="PriorityId" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="LastUpdateDateTime" ColumnName="LastUpdateDateTime" />
+                <ScalarProperty Name="AddDateTime" ColumnName="AddDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HistoryTasks">
+            <EntityTypeMapping TypeName="TaskDbModel.HistoryTask">
+              <MappingFragment StoreEntitySet="HistoryTask">
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="PriorityId" ColumnName="PriorityId" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="LastUpdateDateTime" ColumnName="LastUpdateDateTime" />
+                <ScalarProperty Name="AddDateTime" ColumnName="AddDateTime" />
+                <ScalarProperty Name="TransactionDateTime" ColumnName="TransactionDateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="TaskDbModel">
+        <EntityTypeShape EntityType="TaskDbModel.Account" Width="1.5" PointX="0.75" PointY="4.375" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskDbModel.Category" Width="1.5" PointX="3.75" PointY="0.75" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskDbModel.Priority" Width="1.5" PointX="3.75" PointY="8.625" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskDbModel.Status" Width="1.5" PointX="3.75" PointY="11.625" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskDbModel.Task" Width="1.5" PointX="3" PointY="4" Height="3.5186979166666656" IsExpanded="true" />
+        <EntityTypeShape EntityType="TaskDbModel.HistoryTask" Width="1.5" PointX="6" PointY="3.875" Height="3.7109993489583317" IsExpanded="true" />
+        <AssociationConnector Association="TaskDbModel.FK_HistoryTask_Account" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.5" PointY="4.375" />
+          <ConnectorPoint PointX="1.5" PointY="3.90625" />
+          <ConnectorPoint PointX="4.041666666666667" PointY="3.9062499999999996" />
+          <ConnectorPoint PointX="4.208333333333333" PointY="3.90625" />
+          <ConnectorPoint PointX="6" PointY="3.90625" />
+        </AssociationConnector>
+        <AssociationConnector Association="TaskDbModel.FK_Task_Account" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="5.74974609375" />
+          <ConnectorPoint PointX="3" PointY="5.74974609375" />
+        </AssociationConnector>
+        <AssociationConnector Association="TaskDbModel.FK_HistoryTask_Category" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.90625" PointY="2.9225878906249996" />
+          <ConnectorPoint PointX="4.90625" PointY="3.890625" />
+          <ConnectorPoint PointX="6" PointY="3.890625" />
+        </AssociationConnector>
+        <AssociationConnector Association="TaskDbModel.FK_Task_Category" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.125" PointY="2.9225878906249996" />
+          <ConnectorPoint PointX="4.125" PointY="4" />
+        </AssociationConnector>
+        <AssociationConnector Association="TaskDbModel.FK_HistoryTask_Priority" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.078125" PointY="8.625" />
+          <ConnectorPoint PointX="5.078125" PointY="3.921875" />
+          <ConnectorPoint PointX="6" PointY="3.921875" />
+        </AssociationConnector>
+        <AssociationConnector Association="TaskDbModel.FK_Task_Priority" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.125" PointY="8.625" />
+          <ConnectorPoint PointX="4.125" PointY="7.5186979166666656" />
+        </AssociationConnector>
+        <AssociationConnector Association="TaskDbModel.FK_HistoryTask_Status" ManuallyRouted="false">
+          <ConnectorPoint PointX="5.25" PointY="12.7112939453125" />
+          <ConnectorPoint PointX="6.75" PointY="12.7112939453125" />
+          <ConnectorPoint PointX="6.75" PointY="7.5859993489583317" />
+        </AssociationConnector>
+        <AssociationConnector Association="TaskDbModel.FK_Task_Status" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.75" PointY="12.7112939453125" />
+          <ConnectorPoint PointX="3.3749995" PointY="12.7112939453125" />
+          <ConnectorPoint PointX="3.3749995" PointY="7.5186979166666656" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
