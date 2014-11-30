@@ -1,67 +1,75 @@
 ﻿using System.Web.Mvc;
-using DataAccessServices;
-using ToDoApp.Mappers;
-using System.Linq;
-using ToDoApp.Model;
+using ToDoApp.UI.Mappers.Task.Interfaces;
+using ToDoApp.UI.ViewModel.Task;
 
-namespace ToDoApp.Controllers
+namespace ToDoApp.UI.Controllers
 {
     public class TaskController : Controller
     {
-    	private TaskIndexMapper _mapper;
+		private readonly IAddTaskMapper _addTaskMapper;
+		private readonly IRetrieveTaskListMapper _retrieveTaskListMapper;
+    	private readonly IEditTaskMapper _editTaskMapper;
+    	private readonly IDeleteTaskMapper _deleteTaskMapper;
 
-		public TaskController()
+		public TaskController(IAddTaskMapper addTaskMapper, IRetrieveTaskListMapper retrieveTaskListMapper, IEditTaskMapper editTaskMapper, IDeleteTaskMapper deleteTaskMapper)
 		{
-			_mapper = new TaskIndexMapper();
+			_addTaskMapper = addTaskMapper;
+			_retrieveTaskListMapper = retrieveTaskListMapper;
+			_editTaskMapper = editTaskMapper;
+			_deleteTaskMapper = deleteTaskMapper;
 		}
 
 		[HttpGet]
         public ActionResult List()
         {
-            return View(_mapper.BuildViewModel());
+            return View(_retrieveTaskListMapper.BuildViewModel(HttpContext.User.Identity.Name));
         }
 
 		[HttpGet]
 		public ActionResult Add()
 		{
-			return View(new ToDoItem());
+			return View(_addTaskMapper.BuildViewModel());
 		}
 
 		[HttpPost]
-		public ActionResult Add(ToDoItem item)
+		public ActionResult Add(TaskViewModel viewModel)
 		{
-			string date = string.IsNullOrEmpty(item.DueDateMonth) && string.IsNullOrEmpty(item.DueDateDay) && string.IsNullOrEmpty(item.DueDateYear)
-			              	? string.Empty : item.DueDateMonth + "/" + item.DueDateDay + "/" + item.DueDateYear;
-			new TaskDataServices().AddTask(item.Description, date, item.Category, item.Priority, item.Status, "testId");
-			return RedirectToAction("List");
+			if (ModelState.IsValid)
+			{
+				_addTaskMapper.MapViewModel(viewModel, HttpContext.User.Identity.Name);
+				return RedirectToAction("List");
+			}
+			return View(viewModel);
 		}
 
 		[HttpGet]
 		public ActionResult Edit(int id)
 		{
-			var toDoItem = _mapper.BuildViewModel().ToDoItems.FirstOrDefault(item => item.Id == id);
-			return View(toDoItem);
+			return View(_editTaskMapper.BuildViewModel(id));
 		}
 
 		[HttpPost]
-		public ActionResult Edit(int id, ToDoItem item)
+		public ActionResult Edit(int id, TaskViewModel viewModel)
 		{
-			new TaskDataServices().EditTask(id, item.Description, item.DueDateMonth + "/" + item.DueDateDay + "/" + item.DueDateYear, item.Category, item.Priority, item.Status,
-			                     "testId");
-			return RedirectToAction("List");
+			if (ModelState.IsValid)
+			{
+				_editTaskMapper.MapViewModel(id, viewModel);
+				return RedirectToAction("List");
+			}
+			return View(viewModel);
 		}
 
 		[HttpGet]
 		public ActionResult Delete(int id)
 		{
-			new TaskDataServices().DeleteTask(id);
+			_deleteTaskMapper.DeleteTask(id);
 			return RedirectToAction("List");
 		}
 
 		[HttpGet]
-		public ActionResult ListByDueDate()
+		public JsonResult ListDetails()
 		{
-			return View("List", _mapper.BuildViewModelByDueDate());
+			return Json(_retrieveTaskListMapper.BuildViewModel(HttpContext.User.Identity.Name), JsonRequestBehavior.AllowGet);
 		}
     }
 }

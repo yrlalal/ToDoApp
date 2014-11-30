@@ -1,20 +1,26 @@
-﻿<div class="sidebar">
-	<div class="sidebar-item">
-		<h5>VIEW BY:</h5>
-		<ul>
-			<li><a href="#">Due Date</a></li>
-			<li><a href="#">Priority</a></li>
-			<li><a href="#">Status</a></li>
-			<li><a href="#">Category</a></li>
-		</ul>
+﻿@if (Request.IsAuthenticated)
+{
+	<div class="sidebar">
+		<div class="sidebar-item">
+			<h5><b>GROUP BY:</b></h5>
+			<ul>
+				<li><div class = "clickable" onclick="todoApp.groupByDueDate()">Due Date</div></li>
+				<li><div class = "clickable" onclick="todoApp.groupByPriority()">Priority</div></li>
+				<li><div class = "clickable" onclick="todoApp.groupByStatus()">Status</div></li>
+				<li><div class = "clickable" onclick="todoApp.groupByCategory()">Category</div></li>
+			</ul>
+		</div>
+		<div class="sidebar-item">
+			<div class = "clickable" onclick="todoApp.getAllTasks()">All Tasks</div>
+		</div>
+		<div class="sidebar-item">
+			<div class = "clickable" href="/Task/List">Recently Added</div>
+		</div>
+		<div class="sidebar-item">
+			<div class = "clickable" href="/Task/List">Recently Completed</div>
+		</div>
+		<div class="sidebar-item">
+			<div class = "clickable" href="/Task/List">History</div>
+		</div>
 	</div>
-	<div class="sidebar-item">
-		Recently Added
-	</div>
-	<div class="sidebar-item">
-		Recently Completed
-	</div>
-	<div class="sidebar-item">
-		History
-	</div>
-</div>
+}

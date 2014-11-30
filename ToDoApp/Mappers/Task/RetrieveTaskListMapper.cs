@@ -4,7 +4,6 @@ using System.Linq;
 using ToDoApp.Data.Services.Task;
 using ToDoApp.Data.Services.Task.Interfaces;
 using ToDoApp.UI.Mappers.Task.Interfaces;
-using ToDoApp.UI.ViewModel;
 using ToDoApp.UI.ViewModel.Task;
 
 namespace ToDoApp.UI.Mappers.Task

@@ -214,6 +214,7 @@
     <Content Include="Content\Site.min.css">
       <DependentUpon>Site.scss</DependentUpon>
     </Content>
+    <Content Include="Content\table.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -253,9 +254,9 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Custom\Common.js" />
+    <Content Include="Scripts\Custom\Pages\TaskList.js" />
     <Content Include="Scripts\Custom\Pages\AddTask.js" />
     <Content Include="Scripts\Custom\Pages\EditTask.js" />
-    <Content Include="Scripts\jquery-2.1.1-vsdoc.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.2.js" />
@@ -267,8 +268,6 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\npm.js" />
-    <Content Include="Unity.Mvc3.README.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -293,24 +292,21 @@
     <Content Include="Views\Task\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\bootstrap.css.map" />
     <None Include="Content\Pages\_TaskList.scss" />
     <None Include="Content\_Account.scss" />
     <None Include="Content\_Shared.scss" />
-    <None Include="Content\_Form.scss" />
-    <None Include="Content\_HomeIndex.scss" />
-    <None Include="Content\_Table.scss" />
     <None Include="Content\_Sidebar.scss" />
     <None Include="Content\_Layout.scss" />
     <None Include="Content\_Header.scss" />
     <None Include="Content\Site.scss" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_Sidebar.cshtml" />
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="fonts\glyphicons-halflings-regular.ttf" />
     <None Include="fonts\glyphicons-halflings-regular.woff" />
-    <None Include="Scripts\jquery-2.1.1.min.map" />
     <Content Include="Error.html" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />

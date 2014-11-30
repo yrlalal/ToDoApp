@@ -8,7 +8,7 @@ namespace ToDoApp.Data.Services.Task
 		public TaskDetails Execute(int id)
 		{
 			TaskDetails taskDetails = null;
-			var selectedTask = _taskDatabase.Tasks.FirstOrDefault(task => task.AccountId == id);
+			var selectedTask = _taskDatabase.Tasks.FirstOrDefault(task => task.TaskId == id);
 			if(selectedTask != null)
 				taskDetails = new TaskDetails
 			       		{
