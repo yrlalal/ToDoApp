@@ -21,30 +21,29 @@ GO
 USE TaskDB
 GO
 
-IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Credentials]') AND type in (N'U'))
-DROP TABLE [dbo].[Credentials]
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Account]') AND type in (N'U'))
+DROP TABLE [dbo].[Account]
 GO
 
-CREATE TABLE [dbo].[Credentials](
-	[CredentialsId] [BIGINT] IDENTITY NOT NULL,
-	[UserId] [VARCHAR](50) NOT NULL,
-	[Password] [VARCHAR](50) NOT NULL,
-	[Email] [VARCHAR](50) NOT NULL,
+CREATE TABLE [dbo].[Account](
+	[AccountId] [BIGINT] IDENTITY NOT NULL,
+	[Email] [VARCHAR](100) NOT NULL,
+	[Password] [VARCHAR](100) NOT NULL,
 	[LastName] [VARCHAR](50) NOT NULL,
 	[FirstName] [VARCHAR](50) NOT NULL,
 	[LastUpdateDateTime] [SMALLDATETIME] NOT NULL,
 	[AddDateTime] [SMALLDATETIME] NOT NULL,
- CONSTRAINT [PK_Credentials] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_Account] PRIMARY KEY CLUSTERED 
 (
-	[CredentialsId] ASC
+	[AccountId] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON, FILLFACTOR=80)
 )
 GO
 
-ALTER TABLE [dbo].[Credentials]
-	ADD CONSTRAINT [UK_Credentials_UserId] UNIQUE 
+ALTER TABLE [dbo].[Account]
+	ADD CONSTRAINT [UK_Account_Email] UNIQUE 
 	(
-		[UserId]
+		[Email]
 	)
 GO
 --------------------------------------------------------------------------------------
@@ -135,7 +134,7 @@ GO
 
 CREATE TABLE [dbo].[Task](
 	[TaskId] [BIGINT] IDENTITY NOT NULL,
-	[CredentialsId] [BIGINT] NOT NULL,
+	[AccountId] [BIGINT] NOT NULL,
 	[Description] [VARCHAR](100) NOT NULL,
 	[CategoryId] [SMALLINT] NULL,
 	[StatusId] [SMALLINT] NULL,
@@ -151,8 +150,8 @@ CREATE TABLE [dbo].[Task](
 GO
 
 ALTER TABLE [dbo].[Task]
-	ADD CONSTRAINT FK_Task_Credentials FOREIGN KEY (CredentialsId)
-		REFERENCES [dbo].[Credentials](CredentialsId)
+	ADD CONSTRAINT FK_Task_Account FOREIGN KEY (AccountId)
+		REFERENCES [dbo].[Account](AccountId)
 GO
 
 ALTER TABLE [dbo].[Task]
@@ -179,7 +178,7 @@ GO
 
 CREATE TABLE [history].[Task](
 	[TaskId] [BIGINT] IDENTITY NOT NULL,
-	[CredentialsId] [BIGINT] NOT NULL,
+	[AccountId] [BIGINT] NOT NULL,
 	[Description] [VARCHAR](100) NOT NULL,
 	[CategoryId] [SMALLINT] NULL,
 	[StatusId] [SMALLINT] NULL,
@@ -196,8 +195,8 @@ CREATE TABLE [history].[Task](
 GO
 
 ALTER TABLE [history].[Task]
-	ADD CONSTRAINT FK_HistoryTask_Credentials FOREIGN KEY (CredentialsId)
-		REFERENCES [dbo].[Credentials](CredentialsId)
+	ADD CONSTRAINT FK_HistoryTask_Account FOREIGN KEY (AccountId)
+		REFERENCES [dbo].[Account](AccountId)
 GO
 
 ALTER TABLE [history].[Task]
@@ -228,7 +227,7 @@ FOR DELETE
 AS
 BEGIN	   
 	 INSERT INTO 	[history].[Task]
-		SELECT 		[CredentialsId]
+		SELECT 		[AccountId]
 					,[Description]
 					  ,[CategoryId]
 					  ,[StatusId]
@@ -244,11 +243,11 @@ GO
 USE TaskDB
 GO
 
+INSERT INTO dbo.Category VALUES ('Other', GETDATE(), GETDATE())
 INSERT INTO dbo.Category VALUES ('Personal', GETDATE(), GETDATE())
 INSERT INTO dbo.Category VALUES ('Office', GETDATE(), GETDATE())
 INSERT INTO dbo.Category VALUES ('Shopping', GETDATE(), GETDATE())
 INSERT INTO dbo.Category VALUES ('Groceries', GETDATE(), GETDATE())
-INSERT INTO dbo.Category VALUES ('Other', GETDATE(), GETDATE())
 GO
 --------------------------------------------------------------------------------------
 USE TaskDB
@@ -266,4 +265,5 @@ GO
 INSERT INTO dbo.Status VALUES ('Not Started', GETDATE(), GETDATE())
 INSERT INTO dbo.Status VALUES ('In Process', GETDATE(), GETDATE())
 INSERT INTO dbo.Status VALUES ('Completed', GETDATE(), GETDATE())
+INSERT INTO dbo.Status VALUES ('Ignore', GETDATE(), GETDATE())
 GO

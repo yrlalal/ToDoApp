@@ -1,15 +1,17 @@
 ﻿using System.Web.Optimization;
 
-namespace ToDoApp
+namespace ToDoApp.UI
 {
 	public class BundleConfig
 	{
 		public static void RegisterBundles(BundleCollection bundles)
 		{
-			bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-						"~/Scripts/jquery-{version}.js"));
+			bundles.Add(new StyleBundle("~/Content/todoapp.bundledcss.min").Include(
+							"~/Content/site.css",
+							"~/Content/table.css"));
 
-			bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+			bundles.Add(new ScriptBundle("~/bundles/todoapp.bundledscripts.min").Include(
+							"~/Scripts/custom/Shared.js"));
 		}
 	}
 }

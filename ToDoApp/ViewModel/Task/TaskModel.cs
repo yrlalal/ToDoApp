@@ -15,5 +15,8 @@ namespace ToDoApp.UI.ViewModel.Task
 		[Display(Name = "Due Date")]
 		public string DueDateDisplayString { get; set; }
 		public bool IsDueToday { get; set; }
+		public short? CategoryId;
+		public short? PriorityId;
+		public short? StatusId;
 	}
 }

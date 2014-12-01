@@ -20,7 +20,7 @@ namespace ToDoApp.UI.Controllers
 		[AllowAnonymous]
         public ActionResult Register()
 		{
-			return View(_registerAccountMapper.BuildViewModel());
+			return View("Register", _registerAccountMapper.BuildViewModel());
 		}
 
 		[HttpPost]
@@ -44,7 +44,7 @@ namespace ToDoApp.UI.Controllers
 		public ActionResult SignIn(string returnUrl)
 		{
 			ViewBag.ReturnUrl = returnUrl;
-			return View(_signInAccountMapper.BuildViewModel());
+			return View("SignIn", _signInAccountMapper.BuildViewModel());
 		}
 
 		[HttpPost]

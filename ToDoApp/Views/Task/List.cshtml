@@ -4,33 +4,10 @@
 }
 <h2>Task List</h2>
 <div class="task-list">
-	<div class="table">
-		<table id="all-tasks">
-			<tr>
-				<td class="col-description">
-					@Html.DisplayName("Description")
-				</td>
-				<td class="col-category">
-					@Html.DisplayName("Category")
-				</td>
-				<td class="col-duedate">
-					@Html.DisplayName("Due Date")
-				</td>
-				<td class="col-status">
-					@Html.DisplayName("Status")
-				</td>
-				<td class="col-priority">
-					@Html.DisplayName("Priority")
-				</td>
-				<td class="col-actions">
-					Actions
-				</td>
-			</tr>
-		</table>
-	</div>
-	<div class="add-task">
-		@Html.ActionLink("Add Task", "Add")
-	</div>
+	<div id="loadingMessage">Loading Tasks...</div>
+</div>
+<div class="add-task hidden">
+	@Html.ActionLink("Add Task", "Add")
 </div>
 @section scripts {
 	<script src="../../Scripts/Custom/Pages/TaskList.js" type="text/javascript"></script>

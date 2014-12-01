@@ -72,7 +72,8 @@ body {
   width: 12%; }
 .task-list .due-today {
   color: Red; }
-.task-list .add-task {
+
+.add-task {
   margin-top: 15px; }
 
 .form-signin {
@@ -106,4 +107,7 @@ body {
 .date-picker {
   background-color: #FFF !important;
   cursor: text !important; }
+
+.hidden {
+  display: none !important; }
 

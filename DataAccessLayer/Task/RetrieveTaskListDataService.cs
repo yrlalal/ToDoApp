@@ -20,7 +20,10 @@ namespace ToDoApp.Data.Services.Task
 												AddDateTime = task.AddDateTime,
 												Category = task.Category == null ? string.Empty : task.Category.CategoryText,
 												Priority = task.Priority == null ? string.Empty : task.Priority.PriorityText,
-												Status = task.Status == null ? string.Empty : task.Status.StatusText
+												Status = task.Status == null ? string.Empty : task.Status.StatusText,
+												CategoryId = task.CategoryId,
+												PriorityId = task.PriorityId,
+												StatusId = task.StatusId
 											}).OrderBy(task => task.DueDate).ToList();
 		}
 	}

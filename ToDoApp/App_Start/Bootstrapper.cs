@@ -18,6 +18,7 @@ namespace ToDoApp.UI
             var container = new UnityContainer();        
 			new UnityDataServiceHelper().Configure(container);
 			new UnityMapperHelper().Configure(container);
+			new UnityCoreHelper().Configure(container);
             return container;
         }
     }

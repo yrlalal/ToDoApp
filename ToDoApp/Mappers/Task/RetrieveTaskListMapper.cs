@@ -34,7 +34,10 @@ namespace ToDoApp.UI.Mappers.Task
 				Priority = taskDetail.Priority,
 				Status = taskDetail.Status,
 				DueDateDisplayString = getDueDateDisplayString(getDueDateAsString(taskDetail.DueDate)),
-				IsDueToday = isDueToday(getDueDateAsString(taskDetail.DueDate))
+				IsDueToday = isDueToday(getDueDateAsString(taskDetail.DueDate)),
+				CategoryId = taskDetail.CategoryId,
+				PriorityId = taskDetail.PriorityId,
+				StatusId = taskDetail.StatusId
 			}).ToList();
 		}
 

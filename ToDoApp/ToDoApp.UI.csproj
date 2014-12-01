@@ -196,6 +196,7 @@
     <Compile Include="Mappers\Task\Interfaces\IRetrieveTaskListMapper.cs" />
     <Compile Include="Mappers\Task\RetrieveTaskListMapper.cs" />
     <Compile Include="Mappers\Task\TaskMapperBase.cs" />
+    <Compile Include="UnityHelpers\UnityCoreHelper.cs" />
     <Compile Include="UnityHelpers\UnityDataServiceHelper.cs" />
     <Compile Include="UnityHelpers\UnityMapperHelper.cs" />
     <Compile Include="ViewModel\Account\RegisterViewModel.cs" />
@@ -253,7 +254,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\Custom\Common.js" />
+    <Content Include="Scripts\Custom\Shared.js" />
     <Content Include="Scripts\Custom\Pages\TaskList.js" />
     <Content Include="Scripts\Custom\Pages\AddTask.js" />
     <Content Include="Scripts\Custom\Pages\EditTask.js" />

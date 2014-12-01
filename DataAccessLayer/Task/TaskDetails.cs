@@ -12,5 +12,8 @@ namespace ToDoApp.Data.Services.Task
 		public string Priority { get; set; }
 		public DateTime LastUpdateDateTime { get; set; }
 		public DateTime AddDateTime { get; set; }
+		public short? CategoryId;
+		public short? PriorityId;
+		public short? StatusId;
 	}
 }

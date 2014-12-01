@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp", "ToDoApp\ToDoApp.csproj", "{B671D05B-60B8-45A7-97FF-4A75571D6B61}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp.UI", "ToDoApp\ToDoApp.UI.csproj", "{B671D05B-60B8-45A7-97FF-4A75571D6B61}"
 EndProject
-Project("{C8D11400-126E-41CD-887F-60BD40844F9E}") = "TaskDB", "TaskDb\TaskDB.dbproj", "{67CBC824-A49E-4E9B-A947-360F3DFE65C3}"
+Project("{C8D11400-126E-41CD-887F-60BD40844F9E}") = "ToDoApp.Database", "TaskDb\ToDoApp.Database.dbproj", "{67CBC824-A49E-4E9B-A947-360F3DFE65C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessServices", "DataAccessLayer\DataAccessServices.csproj", "{4DF6F684-032F-456E-B80D-41FC09D09C65}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp.Data.Services", "DataAccessLayer\ToDoApp.Data.Services.csproj", "{4DF6F684-032F-456E-B80D-41FC09D09C65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp.Core", "Core\ToDoApp.Core.csproj", "{75D05326-DDCE-458B-96D1-40FD62CF4AC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp.Data.Model", "ToDoApp.Data.Model\ToDoApp.Data.Model.csproj", "{F063FDBA-578D-4B8E-841E-3F3DA0C5AEB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToDoApp.UI.Tests", "ToDoApp.UI.Tests\ToDoApp.UI.Tests.csproj", "{62805EBD-5021-43C1-8167-DA770C8C82B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,8 +33,23 @@ Global
 		{4DF6F684-032F-456E-B80D-41FC09D09C65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DF6F684-032F-456E-B80D-41FC09D09C65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DF6F684-032F-456E-B80D-41FC09D09C65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75D05326-DDCE-458B-96D1-40FD62CF4AC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75D05326-DDCE-458B-96D1-40FD62CF4AC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75D05326-DDCE-458B-96D1-40FD62CF4AC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75D05326-DDCE-458B-96D1-40FD62CF4AC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F063FDBA-578D-4B8E-841E-3F3DA0C5AEB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F063FDBA-578D-4B8E-841E-3F3DA0C5AEB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F063FDBA-578D-4B8E-841E-3F3DA0C5AEB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F063FDBA-578D-4B8E-841E-3F3DA0C5AEB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62805EBD-5021-43C1-8167-DA770C8C82B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62805EBD-5021-43C1-8167-DA770C8C82B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62805EBD-5021-43C1-8167-DA770C8C82B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62805EBD-5021-43C1-8167-DA770C8C82B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
 	EndGlobalSection
 EndGlobal

@@ -1,39 +1,15 @@
 .field-validation-error {
-  color: #a94442;
-  font-size: medium;
-  background-color: #f2dede;
-  border-color: #ebccd1;
-}
-
-.validation-summary-errors {
-  color: #a94442;
-  background-color: #f2dede;
-  border-color: #ebccd1;
-
-  li {
-        display: inline;
-        list-style: none;
-        margin: 0;
-    }
+    color: #a94442;
+    font-size: medium;
+    background-color: #f2dede;
+    border-color: #ebccd1;
 }
 
 .date-picker {
-background-color: #FFF !important;
-cursor: text !important;
+	background-color: #FFF !important;
+	cursor: text !important;
 }
 
-.btn-generic {
-    color: #9d9d9d;
-    background-color: #333;
-    border-color: #333;
-}
-
-.btn-generic:hover,
-.btn-generic:focus,
-.btn-generic.focus,
-.btn-generic:active,
-.btn-generic.active {
-    color: #9d9d9d;
-    background-color: #333;
-    border-color: #333f;
+.hidden {
+	display: none !important;
 }

@@ -19,7 +19,10 @@ namespace ToDoApp.Data.Services.Task
 			       			AddDateTime = selectedTask.AddDateTime,
 			       			Category = selectedTask.Category == null ? string.Empty : selectedTask.Category.CategoryText,
 			       			Priority = selectedTask.Priority == null ? string.Empty : selectedTask.Priority.PriorityText,
-			       			Status = selectedTask.Status == null ? string.Empty : selectedTask.Status.StatusText
+							Status = selectedTask.Status == null ? string.Empty : selectedTask.Status.StatusText,
+							CategoryId = selectedTask.CategoryId,
+							PriorityId = selectedTask.PriorityId,
+							StatusId = selectedTask.StatusId
 			       		};
 			return taskDetails;
 		}

@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using ToDoApp.Core.Interface;
 using ToDoApp.UI.Mappers.Task.Interfaces;
 using ToDoApp.UI.ViewModel.Task;
 
@@ -10,25 +11,27 @@ namespace ToDoApp.UI.Controllers
 		private readonly IRetrieveTaskListMapper _retrieveTaskListMapper;
     	private readonly IEditTaskMapper _editTaskMapper;
     	private readonly IDeleteTaskMapper _deleteTaskMapper;
+    	private readonly IHttpContextWrapper _httpContextWrapper;
 
-		public TaskController(IAddTaskMapper addTaskMapper, IRetrieveTaskListMapper retrieveTaskListMapper, IEditTaskMapper editTaskMapper, IDeleteTaskMapper deleteTaskMapper)
+		public TaskController(IAddTaskMapper addTaskMapper, IRetrieveTaskListMapper retrieveTaskListMapper, IEditTaskMapper editTaskMapper, IDeleteTaskMapper deleteTaskMapper, IHttpContextWrapper httpContextWrapper)
 		{
 			_addTaskMapper = addTaskMapper;
 			_retrieveTaskListMapper = retrieveTaskListMapper;
 			_editTaskMapper = editTaskMapper;
 			_deleteTaskMapper = deleteTaskMapper;
+			_httpContextWrapper = httpContextWrapper;
 		}
 
 		[HttpGet]
         public ActionResult List()
         {
-            return View(_retrieveTaskListMapper.BuildViewModel(HttpContext.User.Identity.Name));
+            return View("List", _retrieveTaskListMapper.BuildViewModel(_httpContextWrapper.UserName));
         }
 
 		[HttpGet]
 		public ActionResult Add()
 		{
-			return View(_addTaskMapper.BuildViewModel());
+			return View("Add", _addTaskMapper.BuildViewModel());
 		}
 
 		[HttpPost]
@@ -36,7 +39,7 @@ namespace ToDoApp.UI.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				_addTaskMapper.MapViewModel(viewModel, HttpContext.User.Identity.Name);
+				_addTaskMapper.MapViewModel(viewModel, _httpContextWrapper.UserName);
 				return RedirectToAction("List");
 			}
 			return View(viewModel);
@@ -45,7 +48,7 @@ namespace ToDoApp.UI.Controllers
 		[HttpGet]
 		public ActionResult Edit(int id)
 		{
-			return View(_editTaskMapper.BuildViewModel(id));
+			return View("Edit", _editTaskMapper.BuildViewModel(id));
 		}
 
 		[HttpPost]
@@ -69,7 +72,7 @@ namespace ToDoApp.UI.Controllers
 		[HttpGet]
 		public JsonResult ListDetails()
 		{
-			return Json(_retrieveTaskListMapper.BuildViewModel(HttpContext.User.Identity.Name), JsonRequestBehavior.AllowGet);
+			return Json(_retrieveTaskListMapper.BuildViewModel(_httpContextWrapper.UserName), JsonRequestBehavior.AllowGet);
 		}
     }
 }

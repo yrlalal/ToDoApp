@@ -4,23 +4,20 @@
 		<div class="sidebar-item">
 			<h5><b>GROUP BY:</b></h5>
 			<ul>
-				<li><div class = "clickable" onclick="todoApp.groupByDueDate()">Due Date</div></li>
-				<li><div class = "clickable" onclick="todoApp.groupByPriority()">Priority</div></li>
-				<li><div class = "clickable" onclick="todoApp.groupByStatus()">Status</div></li>
-				<li><div class = "clickable" onclick="todoApp.groupByCategory()">Category</div></li>
+				<li><div class = "clickable" onclick="todoApp.groupTasks('DueDateDisplayString', 'DueDate', true)">Due Date</div></li>
+				<li><div class = "clickable" onclick="todoApp.groupTasks('Priority', 'PriorityId', false)">Priority</div></li>
+				<li><div class = "clickable" onclick="todoApp.groupTasks('Status', 'StatusId', true)">Status</div></li>
+				<li><div class = "clickable" onclick="todoApp.groupTasks('Category', 'CategoryId', true)">Category</div></li>
 			</ul>
 		</div>
 		<div class="sidebar-item">
-			<div class = "clickable" onclick="todoApp.getAllTasks()">All Tasks</div>
+			<div class = "clickable" onclick="todoApp.buildTaskTable()">All Tasks</div>
 		</div>
 		<div class="sidebar-item">
-			<div class = "clickable" href="/Task/List">Recently Added</div>
+			<div class = "clickable" onclick="todoApp.filterByDate('Today')">Today's Tasks</div>
 		</div>
 		<div class="sidebar-item">
-			<div class = "clickable" href="/Task/List">Recently Completed</div>
-		</div>
-		<div class="sidebar-item">
-			<div class = "clickable" href="/Task/List">History</div>
+			<div class = "clickable" onclick="todoApp.filterByDate('Tomorrow')">Tomorrow's Tasks</div>
 		</div>
 	</div>
 }

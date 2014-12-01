@@ -1,5 +1,4 @@
 ﻿var taskList;
-var tableHead;
 
 $(document).ready(function () {
 	todoApp.getAllTasks();
@@ -8,126 +7,161 @@ $(document).ready(function () {
 todoApp.getAllTasks = function () {
 	$.ajax({
 		url: "/Task/ListDetails",
-		async: false,
 		type: "GET",
+		async: false,
+		cache: false,
 		contentType: "application/json; charset=utf-8",
 		dataType: "JSON",
 		success: function (result) {
 			taskList = result.TaskList;
-			todoApp.buildTable();
+			todoApp.populateTaskList(taskList);
 		},
 		error: function () {
 			taskList = null;
 			$(".task-list").html("");
-			$(".task-list").text("Error occured while loading the table.");
+			$("#loadingMessage").text("We are sorry. The loading of tasks failed. Please try again.");
 		}
 	});
 };
 
-todoApp.buildTable = function () {
-	tableHead = $("#all-tasks").find("tr:first");
-	$("#all-tasks").find("tr:gt(0)").remove();
-	$.each(taskList, function (i, item) {
-		var tr = document.createElement("tr");
+todoApp.populateTaskList = function (list) {
+	todoApp.prePopulate();
+	todoApp.populateTable(list);
+	todoApp.postPopulate();
+};
 
-		var td = document.createElement("td");
-		td.setAttribute("class", "col-description");
+todoApp.prePopulate = function () {
+	$(".task-list").html("");
+	$("#loadingMessage").removeClass("hidden");
+	$(".add-task").addClass("hidden");
+};
 
-		var span = document.createElement("span");
-		span.textContent = item.Description;
-		td.appendChild(span);
-		tr.appendChild(td);
+todoApp.populateTable = function (list) {
+	var tableDiv = document.createElement("div");
+	tableDiv.setAttribute("class", "table");
 
-		td = document.createElement("td");
-		td.setAttribute("class", "col-category");
-		span = document.createElement("span");
-		span.textContent = item.Category;
-		td.appendChild(span);
-		tr.appendChild(td);
-
-		td = document.createElement("td");
-		td.setAttribute("class", "col-duedate");
-		span = document.createElement("span");
-		span.textContent = item.DueDate;
-		td.appendChild(span);
-		tr.appendChild(td);
-
-		td = document.createElement("td");
-		td.setAttribute("class", "col-status");
-		span = document.createElement("span");
-		span.textContent = item.Status;
-		td.appendChild(span);
-		tr.appendChild(td);
-
-		td = document.createElement("td");
-		td.setAttribute("class", "col-priority");
-		span = document.createElement("span");
-		span.textContent = item.Priority;
-		td.appendChild(span);
-		tr.appendChild(td);
-
-		td = document.createElement("td");
-		td.setAttribute("class", "col-actions");
-		var anchorTag = document.createElement("a");
-		anchorTag.setAttribute("href", "/Task/Edit/" + item.Id);
-		anchorTag.textContent = "Edit";
-		td.appendChild(anchorTag);
-
-		span = document.createElement("span");
-		span.textContent = " | ";
-		td.appendChild(span);
-
-		anchorTag = document.createElement("a");
-		anchorTag.setAttribute("href", "/Task/Delete/" + item.Id);
-		anchorTag.textContent = "Delete";
-		td.appendChild(anchorTag);
-
-		tr.appendChild(td);
-
-		$("#all-tasks tr:last").after(tr);
+	var table = document.createElement("table");
+	todoApp.addTableHeader(table);
+	$.each(list, function (i, item) {
+		todoApp.addTableRow(table, item);
 	});
+
+	tableDiv.appendChild(table);
+	$(".task-list").append(tableDiv);
 };
 
-todoApp.groupByDueDate = function () {
-	if (taskList != null) {
-		taskList = taskList.sort(todoApp.sortByDueDate);
-		todoApp.buildTable();
+todoApp.postPopulate = function () {
+	$("#loadingMessage").addClass("hidden");
+	$(".add-task").removeClass("hidden");
+};
+
+todoApp.addTableHeader = function (table) {
+	var tr = document.createElement("tr");
+	todoApp.addTableHeaderCell(tr, "col-description", "Description");
+	todoApp.addTableHeaderCell(tr, "col-category", "Category");
+	todoApp.addTableHeaderCell(tr, "col-duedate", "Due Date");
+	todoApp.addTableHeaderCell(tr, "col-status", "Status");
+	todoApp.addTableHeaderCell(tr, "col-priority", "Priority");
+	todoApp.addTableHeaderCell(tr, "col-actions", "Actions");
+	table.appendChild(tr);
+};
+
+todoApp.addTableHeaderCell = function (tr, className, content) {
+	var td = document.createElement("td");
+	td.setAttribute("class", className);
+	td.textContent = content;
+	tr.appendChild(td);
+};
+
+todoApp.addTableRow = function (table, item) {
+	var tr = document.createElement("tr");
+	todoApp.addTableDataCell(tr, "col-description", item.Description);
+	todoApp.addTableDataCell(tr, "col-category", item.Category);
+	todoApp.addTableDataCell(tr, "col-duedate", item.DueDateDisplayString);
+	todoApp.addTableDataCell(tr, "col-status", item.Status);
+	todoApp.addTableDataCell(tr, "col-priority", item.Priority);
+	todoApp.addTableActionsCell(tr, item.Id);
+	todoApp.highlightTodaysTask(tr, item.IsDueToday, "due-today");
+	table.appendChild(tr);
+};
+
+todoApp.addTableDataCell = function (tr, className, content) {
+	var td = document.createElement("td");
+	td.setAttribute("class", className);
+	var span = document.createElement("span");
+	span.textContent = content;
+	td.appendChild(span);
+	tr.appendChild(td);
+};
+
+todoApp.addTableActionsCell = function (tr, id) {
+	var td = document.createElement("td");
+	td.setAttribute("class", "col-actions");
+	var anchorTag = document.createElement("a");
+	anchorTag.setAttribute("href", "/Task/Edit/" + id);
+	anchorTag.textContent = "Edit";
+	td.appendChild(anchorTag);
+	var span = document.createElement("span");
+	span.textContent = " | ";
+	td.appendChild(span);
+	anchorTag = document.createElement("a");
+	anchorTag.setAttribute("href", "/Task/Delete/" + id);
+	anchorTag.textContent = "Delete";
+	td.appendChild(anchorTag);
+	tr.appendChild(td);
+};
+
+todoApp.highlightTodaysTask = function (tr, isDueToday, className) {
+	if (isDueToday)
+		tr.setAttribute("class", className);
+};
+
+todoApp.groupTasks = function (displayFieldName, sortFieldName, ascending) {
+	var fieldValue;
+	var list = [];
+	var tempTaskList = taskList.slice(0);
+	if (tempTaskList != null) {
+		tempTaskList.sort(function (task1, task2) {
+			return task1[sortFieldName] == task2[sortFieldName] ? 0 :
+						task1[sortFieldName] == "" || task1[sortFieldName] == null ? 1 :
+							task2[sortFieldName] == "" || task2[sortFieldName] == null ? -1 :
+								ascending ? (task1[sortFieldName] < task2[sortFieldName] ? -1 : 1) :
+																(task1[sortFieldName] < task2[sortFieldName] ? 1 : -1);
+		});
 	}
-};
-
-todoApp.sortByDueDate = function(obj1, obj2) {
-	return (obj1.DueDate < obj2.DueDate) ? -1 : (obj1.DueDate > obj2.DueDate) ? 1 : 0;
-};
-
-todoApp.groupByPriority = function () {
-	if (taskList != null) {
-		taskList.sort(todoApp.sortByPriority);
-		todoApp.buildTable();
+	todoApp.prePopulate();
+	$.each(tempTaskList, function (i, item) {
+		if (fieldValue != item[displayFieldName]) {
+			if (list.length != 0) {
+				todoApp.populateGroupTaskTable(fieldValue, list);
+			}
+			list = [];
+			fieldValue = item[displayFieldName];
+		}
+		list.push(item);
+	});
+	if (list.length != 0) {
+		todoApp.populateGroupTaskTable(fieldValue, list);
 	}
+	todoApp.postPopulate();
 };
 
-todoApp.sortByPriority = function (obj1, obj2) {
-	return (obj1.Priority < obj2.Priority) ? -1 : (obj1.Priority > obj2.Priority) ? 1 : 0;
+todoApp.populateGroupTaskTable = function (fieldValue, list) {
+	var subHeader = document.createElement("h4");
+	fieldValue === "" ? subHeader.textContent = "Unlisted" : subHeader.textContent = fieldValue;
+	$(".task-list").append(subHeader);
+	todoApp.populateTable(list);
 };
 
-todoApp.groupByStatus = function () {
-	if (taskList != null) {
-		taskList.sort(todoApp.sortByStatus);
-		todoApp.buildTable();
-	}
+todoApp.filterByDate = function (dueDate) {
+	var list = [];
+	$.each(taskList, function (i, item) {
+		if (item.DueDateDisplayString === dueDate)
+			list.push(item);
+	});
+	todoApp.populateTaskList(list);
 };
 
-todoApp.sortByStatus = function (obj1, obj2) {
-	return (obj1.Status < obj2.Status) ? -1 : (obj1.Status > obj2.Status) ? 1 : 0;
-};
-
-todoApp.groupByCategory = function () {
-	if (taskList != null) {
-		taskList.sort(todoApp.sortByCategory);
-		todoApp.buildTable();
-	}
-};
-
-todoApp.sortByCategory = function (obj1, obj2) {
-	return (obj1.Category < obj2.Category) ? -1 : (obj1.Category > obj2.Category) ? 1 : 0;
+todoApp.buildTaskTable = function () {
+	todoApp.populateTaskList(taskList);
 };
