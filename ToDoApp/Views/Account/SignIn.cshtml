@@ -2,7 +2,6 @@
 @model ToDoApp.UI.ViewModel.Account.SignInViewModel
 @{
 	ViewBag.Title = "Sign In";
-	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using (Html.BeginSignInForm())
 {
@@ -16,7 +15,4 @@
 	@Html.PasswordFor(model => model.Password, new { @class = "form-control", @placeholder = "Password" })
 	@Html.ValidationMessageFor(model => model.Password)
 	<button type="submit" class="btn btn-lg btn-success btn-block">Sign In</button>
-}
-@section scripts {
-	@Scripts.Render("~/bundles/jqueryval")
 }

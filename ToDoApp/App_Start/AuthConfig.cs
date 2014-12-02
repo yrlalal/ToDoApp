@@ -1,4 +1,4 @@
-﻿namespace ToDoApp
+﻿namespace ToDoApp.UI
 {
 	public static class AuthConfig
 	{
