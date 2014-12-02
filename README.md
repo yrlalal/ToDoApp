@@ -1,25 +1,22 @@
-ToDoApp
-=======
-
 Tools
 -----
-Visual Studio 2010
+Visual Studio 2010, 
 MS SQL Server 2008
 
 Technologies and Languages
 --------------------------
-C#
-.NET framework 4.0
-ASP.NET MVC 4.0
-Unity IoC Container
-Entity Framework
-LINQ
-T-SQL
-JavaScript/jQuery
-SASS
-Responsive Web Design using CSS3 Media Queries
-MSTest
-Rhino Mocks
+C#, 
+.NET framework 4.0, 
+ASP.NET MVC 4.0, 
+Unity IoC Container, 
+Entity Framework, 
+LINQ, 
+T-SQL, 
+JavaScript/jQuery, 
+SASS, 
+Responsive Web Design using CSS3 Media Queries, 
+MSTest, 
+Rhino Mocks, 
 Bootstrap
 
 Build Instructions
