@@ -3,8 +3,8 @@ Tools
 Visual Studio 2010, 
 MS SQL Server 2008
 
-Technologies and Languages
---------------------------
+Technologies
+------------
 C#, 
 .NET framework 4.0, 
 ASP.NET MVC 4.0, 
